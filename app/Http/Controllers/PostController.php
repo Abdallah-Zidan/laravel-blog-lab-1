@@ -2,29 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
    function index()
     {
-        $posts =[
-            [
-                "title"=>"first post",
-                "created_at"=>"12-5-2020"
-            ],
-            [
-                "title"=>"second post",
-                "created_at"=>"13-5-2020"
-            ],
-            [
-                "title"=>"third post",
-                "created_at"=>"14-5-2020"
-            ],
+        $posts = Post::all();
+
+        foreach($posts as $post){
+            $post->created_at = Carbon::parse($post->created_at);
+        }
+
+        return view('posts.index',[
+            "posts" => $posts
+            ]);
+    }
+
+    public function show()
+    {
+        $request = request();
+        $post_id = $request->post;
+
+        $post = Post::find($post_id);
+
+        return view('posts.show' , [
+            "post" => $post
+            ]);     
+    }
+
+    public function create()
+    {
+        $users = User::all();
+
+        return view("posts.create" , [
+            "users" => $users,
+        ]);
+    }
+
+    public function store()
+    {
+        $request = request();
+
+        $post = [
+            "title"       => $request->title,
+            "description" => $request->description,
+            "user_id"     => $request->user_id,
         ];
 
-        return view('posts',[
-            "posts"=>$posts
-            ]);
+        Post::create($post);
+
+        return redirect()->route("posts.index");
     }
 }
