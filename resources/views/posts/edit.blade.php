@@ -7,24 +7,27 @@
 	    
 	    <div class="col-sm-12">
 	        
-    		<h1>Create Post</h1>
+    		<h1>Edit Post</h1>
     		
-    		<form method="POST" action="{{route('posts.store')}}">
+    		<form method="POST" action="{{route('posts.update' , ['post' => $post->id])}}">
             @csrf
-
+            @method('PUT')
     		    <div class="form-group">
     		        <label for="title">Title </label>
-    		        <input type="text" class="form-control" name="title" />
+    		        <input type="text" value="{{$post->title}}"
+                         class="form-control" name="title" />
     		    </div>
     		    
     		    <div class="form-group">
     		        <label for="description">Description</label>
-    		        <textarea rows="5" class="form-control" name="description" ></textarea>
+    		        <textarea rows="5" class="form-control" name="description" >
+                    {{$post->description}}
+                    </textarea>
     		    </div>
     		    
                  <div class="form-group mb-5">
                     <label for="user_id">Post Creator</label>
-                    <select name="user_id" class="form-control">
+                    <select name="user_id" class="form-control" value = "{{$post->user->id}}">
                             @foreach($users as $user)  
                             <option value="{{$user->id}}">{{$user->name}}</option>
                             @endforeach
@@ -33,7 +36,7 @@
 
     		    <div class="form-group">
     		        <button type="submit" class="btn btn-primary">
-    		            Create
+    		            Update
     		        </button>
     		        <button class="btn btn-default">
     		            Cancel

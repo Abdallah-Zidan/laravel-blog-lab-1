@@ -43,6 +43,36 @@ class PostController extends Controller
         ]);
     }
 
+    public function edit()
+    {
+        $request = request();
+
+        $post_id = $request->post;
+        $post = Post::find($post_id);
+
+        $users = User::all();
+
+        return view("posts.edit",[
+            "post"  => $post , 
+            "users" => $users
+            ]);
+    }
+
+    public function update()
+    {
+        $request = request();
+        $post_id = $request->post;
+        $post = [
+            "title"       => $request->title,
+            "description" => $request->description,
+            "user_id"     => $request->user_id,
+        ];
+
+        Post::find($post_id)->update($post);
+
+        return redirect()->route("posts.index");
+    }
+
     public function store()
     {
         $request = request();
@@ -54,6 +84,16 @@ class PostController extends Controller
         ];
 
         Post::create($post);
+
+        return redirect()->route("posts.index");
+    }
+
+    public function destroy()
+    {
+        $request = request();
+        
+        $post_id = $request->post;
+        Post::destroy($post_id);
 
         return redirect()->route("posts.index");
     }
