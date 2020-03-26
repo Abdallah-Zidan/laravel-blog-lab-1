@@ -44,24 +44,15 @@
                         >
                     </td>
 
-                    <td class="text-center">
-                        <form method="POST"
-                            action="{{route('posts.destroy' , ['post' => $post->id])}}"
-                        >
-                        @csrf 
-                        @method("DELETE")
-                        
-                        <input
-                            type="submit"
-                            value="Delete"
-                            name="delete"
-                            class="btn btn-danger "
-                        />
-                        
-                        </form>
-                       
+                    <td>
+                        <button type="button" class="btn btn-danger" 
+                        data-toggle="modal" data-target="#deleteModal{{ $post->id }}">
+                        Delete
+                        </button>
                     </td>
                 </tr>
+                @include('posts.delete_modal')
+
                 @endforeach
             </tbody>
         </table>
