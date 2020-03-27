@@ -6,11 +6,12 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Support\Facades\Storage;
-
+use Spatie\Tags\HasTags;
 class Post extends Model
 {
     use Sluggable;
-
+    use HasTags;
+    
     protected $fillable =[
         'title',
         'description',
@@ -51,7 +52,7 @@ class Post extends Model
     }
 
     public function setPostImageAttribute($value){
-        
+
         if(isset($this->attributes['post_image']))
                 Storage::disk('public')
                 ->delete("uploads/images/".basename($this->attributes['post_image']));

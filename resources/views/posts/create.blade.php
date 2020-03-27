@@ -49,6 +49,11 @@
                     />
                 </div>
 
+                 <div class="form-group">
+                    <label for="tags">Tags (comma seperated) </label>
+                    <input type="text" class="form-control" name="tags" />
+                </div>
+
                 <div class="form-group mb-5">
                     <label for="user_id">Post Creator</label>
                     <select name="user_id" class="form-control">
