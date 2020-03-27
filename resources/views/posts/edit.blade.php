@@ -27,9 +27,13 @@
     		    
                  <div class="form-group mb-5">
                     <label for="user_id">Post Creator</label>
-                    <select name="user_id" class="form-control" value = "{{$post->user->id}}">
-                            @foreach($users as $user)  
-                            <option value="{{$user->id}}">{{$user->name}}</option>
+                    <select name="user_id" class="form-control">
+							@foreach($users as $user) 
+							@if ($user->id == $post->user->id)
+								<option value="{{$user->id}}" selected>{{$user->name}}</option>
+							@else
+                            	<option value="{{$user->id}}">{{$user->name}}</option>
+							@endif 
                             @endforeach
                     </select>
                 </div>
