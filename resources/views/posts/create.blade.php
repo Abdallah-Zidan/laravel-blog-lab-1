@@ -35,9 +35,9 @@
     		        <button type="submit" class="btn btn-primary">
     		            Create
     		        </button>
-    		        <button class="btn btn-default">
+    		        <a class="btn btn-default" href="{{route('posts.index')}}">
     		            Cancel
-    		        </button>
+    		        </a>
     		    </div>
     		    
     		</form>
