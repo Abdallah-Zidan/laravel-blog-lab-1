@@ -43,4 +43,9 @@ class User extends Authenticatable
         return Carbon::parse($value)->isoFormat('dddd Do of MMMM  Y hh:mm:ss A');
         
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
 }
