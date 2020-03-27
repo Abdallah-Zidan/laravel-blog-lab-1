@@ -2,12 +2,12 @@
 <link rel="stylesheet" href="css/show.css" />
 @section('content')
 <div class="container">
-    <div class="card m-5">
+    <div class="card m-5 w-70">
         <div class="card-header">
             Post Info
         </div>
         @if ($post->post_image)
-            <img src="{{$post->post_image}}" class="card-img-top" alt="image">
+            <img src="{{$post->post_image}}" class="card-img-top " alt="image">
        @endif
         <div class="card-body">
             <h5 class="card-title">Title :- {{$post->title}}</h5>

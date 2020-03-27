@@ -34,7 +34,7 @@ class PostRequest extends FormRequest
                     ],
 
             'description' => 'required | min:10',
-            'post_image'     =>  'required|image|mimes:png,jpg,jpeg',
+            'post_image'  => 'image|mimes:png,jpg,jpeg',
             "user_id"     => 'exists:users,id'
         ];
     }
@@ -47,7 +47,7 @@ class PostRequest extends FormRequest
             "title.unique"         => "title is used before .. please provide another title",
             "description.required" => "description is required",
             "description.required" => "description must be at least 10 characters",
-            "user_id.exists"              => "sorry .. user doesn't exist"
+            "user_id.exists"       => "sorry .. user doesn't exist"
         ];
     }
 }

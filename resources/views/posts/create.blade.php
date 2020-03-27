@@ -38,11 +38,11 @@
                     <label
                         for="post_image"
                         class="col-md-4 col-form-label text-md-right"
-                        >Profile Image</label
+                        >Post Image</label
                     >
 
                     <input
-                        id="profile_image"
+                        id=post_image"
                         type="file"
                         class="form-control"
                         name="post_image"

@@ -18,6 +18,15 @@ class Post extends Model
         "post_image"
     ];
 
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User');
@@ -41,13 +50,5 @@ class Post extends Model
         return $value ? Storage::url($value) : null;
     }
 
-    public function sluggable()
-    {
-        return [
-            'slug' => [
-                'source' => 'title'
-            ]
-        ];
-    }
 
 }

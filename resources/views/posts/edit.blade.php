@@ -18,7 +18,7 @@
     			</div>
 			@endif
     		
-    		<form method="POST" action="{{route('posts.update' , ['post' => $post->id])}}">
+    		<form method="POST"  enctype="multipart/form-data" action="{{route('posts.update' , ['post' => $post->id])}}">
             @csrf
             @method('PUT')
     		    <div class="form-group">
@@ -33,7 +33,31 @@
                     {{$post->description}}
                     </textarea>
     		    </div>
-    		    
+
+    		      <div class="form-group mb-5">
+                    <label
+                        for="post_image"
+                        class="col-md-4 col-form-label "
+						
+                        >
+						@if ($post->post_image)
+							<img src="{{  $post->post_image }}" width="200" 
+							height="200" style="pointer-events: none "/>
+						@else
+							Post Image
+						@endif
+						</label
+                    >
+					<br>
+                    <input
+                        id="post_image"
+                        type="file"
+                        
+                        name="post_image"
+						value ="{{$post->post_image}}"
+                    />
+                </div>
+
                  <div class="form-group mb-5">
                     <label for="user_id">Post Creator</label>
                     <select name="user_id" class="form-control">
