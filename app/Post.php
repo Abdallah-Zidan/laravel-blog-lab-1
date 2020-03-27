@@ -50,5 +50,14 @@ class Post extends Model
         return $value ? Storage::url($value) : null;
     }
 
-
+    public function setPostImageAttribute($value){
+        
+        if(isset($this->attributes['post_image']))
+                Storage::disk('public')
+                ->delete("uploads/images/".basename($this->attributes['post_image']));
+        
+        $folder = 'public/uploads/images';
+        $path =$value->store($folder);
+        $this->attributes['post_image'] =$path;
+    }
 }
