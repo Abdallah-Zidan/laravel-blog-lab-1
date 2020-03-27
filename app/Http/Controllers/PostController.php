@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Post;
 use App\User;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -21,7 +23,7 @@ class PostController extends Controller
     public function show($post_id)
     {
         $post = Post::find($post_id);
-
+        
         return view('posts.show' , [
             "post" => $post
             ]);     
@@ -47,7 +49,7 @@ class PostController extends Controller
                 "users" => $users
                 ]);
         }
-        
+
         return abort(404);
         
     }
@@ -56,7 +58,7 @@ class PostController extends Controller
     {
 
         $post = $request->only(["title","description","user_id"]);
-
+       
         Post::find($post_id)->update($post);
 
         return redirect()->route("posts.index");
@@ -65,8 +67,16 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
       
-        $post = $request->only(["title","description","user_id"]);
-        
+       $post = $request->only(["title","description","user_id"]);
+       
+       $image = $request->file('post_image');
+       
+       $folder = 'public/uploads/images';
+
+       $path =$image->store($folder);
+           
+       $post["post_image"] =$path;
+
         Post::create($post);
 
         return redirect()->route("posts.index");

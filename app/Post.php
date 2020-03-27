@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
 {
@@ -14,6 +15,7 @@ class Post extends Model
         'title',
         'description',
         'user_id',
+        "post_image"
     ];
 
     public function user()
@@ -33,6 +35,10 @@ class Post extends Model
        
         return Carbon::parse($this->created_at)->isoFormat('dddd Do of MMMM  Y');
         
+    }
+
+    public function getPostImageAttribute($value){
+        return $value ? Storage::url($value) : null;
     }
 
     public function sluggable()

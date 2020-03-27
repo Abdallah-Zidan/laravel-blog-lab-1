@@ -14,6 +14,7 @@ class PostRequest extends FormRequest
      */
     public function authorize()
     {
+        
         return true;
     }
 
@@ -33,6 +34,7 @@ class PostRequest extends FormRequest
                     ],
 
             'description' => 'required | min:10',
+            'post_image'     =>  'required|image|mimes:png,jpg,jpeg',
             "user_id"     => 'exists:users,id'
         ];
     }

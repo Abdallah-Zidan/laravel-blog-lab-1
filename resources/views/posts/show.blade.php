@@ -6,6 +6,9 @@
         <div class="card-header">
             Post Info
         </div>
+        @if ($post->post_image)
+            <img src="{{$post->post_image}}" class="card-img-top" alt="image">
+       @endif
         <div class="card-body">
             <h5 class="card-title">Title :- {{$post->title}}</h5>
             <h6>Description:-</h6>
