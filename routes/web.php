@@ -32,6 +32,8 @@ Route::group(["middleware" => "auth"],function(){
     Route::delete("/posts/{post}", "PostController@destroy")->name("posts.destroy");
 
     Route::get("/posts/{post}/edit","PostController@edit")->name("posts.edit");
+    
+    Route::resource('comments', 'CommentController');
 
 });
 
@@ -39,4 +41,3 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('comments', 'CommentController');

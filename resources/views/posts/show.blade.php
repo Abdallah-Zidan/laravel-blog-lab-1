@@ -20,6 +20,17 @@
     </div>
 
     <h3>Comments</h3>
+    <hr>
+
+     @forelse ($post->comments as $comment)
+        <p>@ {{$comment->created_at}}</p>
+        <h5>{{ $comment->user->name }} </h5>
+        <p>{{ $comment->body }}</p>
+        <hr />
+    @empty
+    <p>This post has no comments</p>
+    @endforelse
+
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -29,6 +40,7 @@
         </ul>
     </div>
     @endif
+
     <form method="POST" action="{{ route('comments.store') }}">
         @csrf
         <div class="form-group">
@@ -39,14 +51,7 @@
         <input type="submit" value="Send" name="send" />
     </form>
 
-    @forelse ($post->comments as $comment)
-        <p>@ {{$comment->created_at}}</p>
-        <h5>{{ $comment->user->name }} </h5>
-        <p>{{ $comment->body }}</p>
-        <hr />
-    @empty
-    <p>This post has no comments</p>
-    @endforelse
+   
 
     <div class="card m-5">
         <div class="card-header">
