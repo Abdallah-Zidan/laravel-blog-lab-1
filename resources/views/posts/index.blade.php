@@ -25,7 +25,7 @@
                     <td>{{$post->title}}</td>
                     <td>{{$post->user? $post->user->name : "unknown"}}</td>
                     <td>{{$post->created_at}}</td>
-                   
+
                     <td class="text-center">
                         <a
                             class="btn btn-info "
@@ -45,17 +45,23 @@
                     </td>
 
                     <td>
-                        <button type="button" class="btn btn-danger" 
-                        data-toggle="modal" data-target="#deleteModal{{ $post->id }}">
-                        Delete
+                        <button
+                            type="button"
+                            class="btn btn-danger"
+                            data-toggle="modal"
+                            data-target="#deleteModal{{ $post->id }}"
+                        >
+                            Delete
                         </button>
                     </td>
                 </tr>
-                @include('posts.delete_modal')
-
-                @endforeach
+                @include('posts.delete_modal') @endforeach
             </tbody>
         </table>
     </div>
 </div>
+<div class="container">
+    {{ $posts->links() }}
+</div>
+
 @endsection

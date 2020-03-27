@@ -28,7 +28,7 @@ class Post extends Model
     public function getHumanReadableDateAttribute()
     {
        
-        return Carbon::parse($this->created_at)->isoFormat('dddd Do of MMMM  Y hh:mm:ss A');
+        return Carbon::parse($this->created_at)->isoFormat('dddd Do of MMMM  Y');
         
     }
 

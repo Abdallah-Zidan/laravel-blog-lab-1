@@ -11,8 +11,8 @@ class PostController extends Controller
 {
    function index()
     {
-        $posts = Post::all();
-      
+        $posts = Post::paginate(5);
+    
         return view('posts.index',[
             "posts" => $posts
             ]);
