@@ -4,9 +4,12 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Post extends Model
 {
+    use Sluggable;
+
     protected $fillable =[
         'title',
         'description',
@@ -30,6 +33,15 @@ class Post extends Model
        
         return Carbon::parse($this->created_at)->isoFormat('dddd Do of MMMM  Y');
         
+    }
+
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
     }
 
 }

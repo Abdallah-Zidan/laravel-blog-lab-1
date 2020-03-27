@@ -12,6 +12,7 @@
                 >
                 <tr>
                     <th>ID</th>
+                    <th>Slug</th>
                     <th>Title</th>
                     <th>Posted By</th>
                     <th>Created At</th>
@@ -22,6 +23,7 @@
                 @foreach ($posts as $post )
                 <tr>
                     <td>{{$post->id}}</td>
+                    <td>{{$post->slug}}</td>
                     <td>{{$post->title}}</td>
                     <td>{{$post->user? $post->user->name : "unknown"}}</td>
                     <td>{{$post->created_at}}</td>

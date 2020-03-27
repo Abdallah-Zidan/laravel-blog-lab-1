@@ -67,6 +67,9 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
+                 <a class="navbar-brand" href="{{route('posts.index')}}">
+                   All Posts <span class="sr-only"></span>
+                </a>
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else

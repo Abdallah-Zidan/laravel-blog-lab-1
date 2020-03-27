@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Post;
 use App\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -18,11 +18,8 @@ class PostController extends Controller
             ]);
     }
 
-    public function show()
+    public function show($post_id)
     {
-        $request = request();
-        $post_id = $request->post;
-
         $post = Post::find($post_id);
 
         return view('posts.show' , [
@@ -39,57 +36,45 @@ class PostController extends Controller
         ]);
     }
 
-    public function edit()
+    public function edit($post_id)
     {
-        $request = request();
-
-        $post_id = $request->post;
         $post = Post::find($post_id);
 
-        $users = User::all();
-
-        return view("posts.edit",[
-            "post"  => $post , 
-            "users" => $users
-            ]);
+        if($post){
+            $users = User::all();
+            return view("posts.edit",[
+                "post"  => $post , 
+                "users" => $users
+                ]);
+        }
+        
+        return abort(404);
+        
     }
 
-    public function update()
+    public function update(PostRequest $request , $post_id)
     {
-        $request = request();
-        $post_id = $request->post;
-        $post = [
-            "title"       => $request->title,
-            "description" => $request->description,
-            "user_id"     => $request->user_id,
-        ];
+
+        $post = $request->only(["title","description","user_id"]);
 
         Post::find($post_id)->update($post);
 
         return redirect()->route("posts.index");
     }
 
-    public function store()
+    public function store(PostRequest $request)
     {
-        $request = request();
-
-        $post = [
-            "title"       => $request->title,
-            "description" => $request->description,
-            "user_id"     => $request->user_id,
-            "created_at"  => Carbon::now(),
-        ];
-
+      
+        $post = $request->only(["title","description","user_id"]);
+        
         Post::create($post);
 
         return redirect()->route("posts.index");
     }
 
-    public function destroy()
+    public function destroy($post_id)
     {
-        $request = request();
-        
-        $post_id = $request->post;
+      
         Post::destroy($post_id);
 
         return redirect()->route("posts.index");
