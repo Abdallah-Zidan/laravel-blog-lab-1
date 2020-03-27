@@ -2,11 +2,11 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    // id // title // posted by // created at // actions 
     protected $fillable =[
         'title',
         'description',
@@ -16,6 +16,20 @@ class Post extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+       
+        return Carbon::parse($value)->format('Y-m-d');
+        
+    }
+
+    public function getHumanReadableDateAttribute()
+    {
+       
+        return Carbon::parse($this->created_at)->isoFormat('dddd Do of MMMM  Y hh:mm:ss A');
+        
     }
 
 }

@@ -12,6 +12,7 @@
             <p class="card-text">
                 {{ $post->description}}
             </p>
+            <h6>Created At:- {{$post->human_readable_date}}</h6>
         </div>
     </div>
 

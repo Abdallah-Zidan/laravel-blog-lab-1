@@ -24,7 +24,7 @@
                     <td>{{$post->id}}</td>
                     <td>{{$post->title}}</td>
                     <td>{{$post->user? $post->user->name : "unknown"}}</td>
-                    <td>{{$post->created_at->format('Y-m-d')}}</td>
+                    <td>{{$post->created_at}}</td>
                    
                     <td class="text-center">
                         <a

@@ -12,11 +12,7 @@ class PostController extends Controller
    function index()
     {
         $posts = Post::all();
-
-        foreach($posts as $post){
-            $post->created_at = Carbon::parse($post->created_at);
-        }
-
+      
         return view('posts.index',[
             "posts" => $posts
             ]);
@@ -81,6 +77,7 @@ class PostController extends Controller
             "title"       => $request->title,
             "description" => $request->description,
             "user_id"     => $request->user_id,
+            "created_at"  => Carbon::now(),
         ];
 
         Post::create($post);
@@ -97,4 +94,7 @@ class PostController extends Controller
 
         return redirect()->route("posts.index");
     }
+
+    
 }
+
