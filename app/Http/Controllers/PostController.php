@@ -21,9 +21,11 @@ class PostController extends Controller
     public function show($post_id)
     {
         $post = Post::find($post_id);
-        return view('posts.show' , [
-            "post" => $post
-            ]);     
+        if($post)
+            return view('posts.show' , [
+                "post" => $post
+                ]);
+        return abort(404);    
     }
 
     public function create()
