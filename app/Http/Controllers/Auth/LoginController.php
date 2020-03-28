@@ -41,33 +41,42 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function redirectToProvider()
+    public function redirectToGitProvider()
     {
         return Socialite::driver('github')->redirect();
     }
 
-    /**
-     * Obtain the user information from GitHub.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function handleProviderCallback()
+    public function redirectToGoogleProvider()
     {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGitProviderCallback()
+    {
+      return  $this->handleProviderCallBack('github'); 
+    }
+
+    public function handleGoogleProviderCallback()
+    {
+       return $this->handleProviderCallBack('google');
+    }
+
+    private function handleProviderCallBack($provider){
         try {
-            $user = Socialite::driver('github')->user();
+            $user = Socialite::driver($provider)->user();
         } catch (Exception $e) {
-            return redirect()->route('login.github');
+            return redirect()->route("login.$provider");
         }
        
-        $authUser = $this->findOrCreateUser($user);
+       
+        $authUser = $this->findOrCreateUser($user,$provider);
         
         Auth::login($authUser, true);
 
         return redirect()->route('posts.index');
-        
     }
 
-    private function findOrCreateUser($user)
+    private function findOrCreateUser($user , $provider)
     {
        
         if ($authUser = User::where('github_id', $user->id)->first()) {
@@ -75,14 +84,14 @@ class LoginController extends Controller
             return $authUser;
         } 
         else if($authUser = User::where('email',$user->email)->first()){
-            $authUser->update(['github_id'=>$user->id]);
+            $authUser->update([$provider."_id"=>$user->id]);
             return $authUser;
         }
         $name =  $user->name ? $user->name : $user->nickname;
         return User::create([
             'name'      => $name,
             'email'     => $user->email,
-            'github_id' => $user->id,
+            $provider."_id" => $user->id,
         ]);
     }
 }
